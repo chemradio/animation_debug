@@ -19,30 +19,46 @@ function create_animation(config) {
 		// background scroll
 		.to(
 			'.bgScroll',
-			{ duration: SCROLLDURATION, y: `${-1 * BG_SCROLLAMOUNT}px` },
+			{
+				duration: SCROLLDURATION,
+				transform: `translateY(${-1 * BG_SCROLLAMOUNT}px)`,
+				// y: `${-1 * BG_SCROLLAMOUNT}px`
+			},
 			0
 		)
 
 		// background zoom
-		.from('.bgZoom', { duration: SCROLLDURATION, scale: 1.2 }, 0)
+		.from(
+			'.bgZoom',
+			{ duration: SCROLLDURATION, transform: 'scale(1.2)' },
+			0
+		)
 		// background only
 		.to(
 			'.bgOnly',
-			{ duration: ZOOMDURATION_BGONLY, scale: 1.1, ease: 'power4.out' },
+			{
+				duration: ZOOMDURATION_BGONLY,
+				transform: 'scale(1.1)',
+				ease: 'power4.out',
+			},
 			0
 		)
 		.to(
 			'.bgOnly',
 			{
 				duration: SCROLLDURATION - ONLYBGOVERLAP,
-				y: `${-1 * BG_SCROLLAMOUNT}px`,
+				transform: `translateY(${-1 * BG_SCROLLAMOUNT}px)`,
 				ease: CustomEase.create('custom', 'M0,0,C0.142,0,1,1,1,1'),
 			},
 			ZOOMDURATION_BGONLY - ONLYBGOVERLAP
 		)
 
 		// foil wipe
-		.from('.midnightFoil', { y: '1080px', ease: 'power3.out' }, 0)
+		.from(
+			'.midnightFoil',
+			{ transform: 'translateY(1080px)', ease: 'power3.out' },
+			0
+		)
 
 		// foreground wipe
 		.from(
@@ -56,11 +72,19 @@ function create_animation(config) {
 		)
 
 		// foreground scroll
-		.to('.facebook', { duration: SCROLLDURATION, y: '-200px' }, 0.2)
+		.to(
+			'.facebook',
+			{
+				duration: SCROLLDURATION,
+				transform: 'translateY(-200px)',
+			},
+			0.2
+		)
+
 		// foreground zoom
 		.to(
 			'.twitter, .document, .instagram, .photo',
-			{ duration: SCROLLDURATION, scale: 1.1 },
+			{ duration: SCROLLDURATION, transform: 'scale(1.1)' },
 			0.2
 		)
 
@@ -80,4 +104,9 @@ function create_animation(config) {
 
 	// tail
 	// .to('tail-nonexistent', {duration: TAIL, y:'1100px'}, SCROLLDURATION);
+	document.querySelector('body').addEventListener('click', () => {
+		timeline.pause();
+		timeline.progress(0);
+		timeline.resume();
+	});
 }

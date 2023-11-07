@@ -97,6 +97,8 @@ body {
 .bgScroll {
     align-self: flex-start;
     width: 100%;
+    will-change: transform;
+
 }
 
 .bgZoom { 
@@ -135,6 +137,7 @@ body {
     align-self: flex-start;
     margin-top: 135px;
     width:52%;
+    will-change: transform;
 }
 
 .twitter, .document, .instagram, .photo {
